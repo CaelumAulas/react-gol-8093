@@ -76,8 +76,18 @@ class App extends Component {
 
 
 
+## 03 - Pegar o restante do projeto
+(Capitulo 07)
+1 - Renomear a pasta ./src para ./_oldsrc
+2 - Arrastar a pasta src de:
+    - ./arquivos-js46-master/curso/02-srcDoProjetoAtualizada/src
+    - Para: ./twitelum/
 
+## 04 - Como o React funciona?
+- Otimizando a pixel pipeline a cada setState:
+    - https://developers.google.com/web/fundamentals/performance/rendering/images/intro/frame-full.jpg
 
+- "React ajuda o browser a fazer as atualizações do DOM de forma mais performática"
 
 
 
