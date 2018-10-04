@@ -89,6 +89,42 @@ class App extends Component {
 
 - "React ajuda o browser a fazer as atualizações do DOM de forma mais performática"
 
+## 05 - Validando antes de criar um tweet
+# Quais são as condições
+
+## Usuário
+- Clica na caixa de texto
+- Digita o conteúdo do Tweet
+    - Enquanto o usuário digitar a validação vai ocorrer
 
 
+## Dev
+- Monitorar o valor do textarea...
+    - Devemos adicionar um evento no elemento html
+- Ter mais de um caracter;
+- Quantidade máxima de 140;
+
+- Salvar o Tweet;
+
+
+## 06 - Fazendo listas aparecerem na tela com React
+
+- Sempre usa o map!
+
+function forEach(funcao) {
+    const array = this
+    for(item of array) {
+        funcao(item)
+    }
+}
+
+function map(funcao) {
+    const array = this
+    const novoArray = []
+    for(item of array) {
+        const retorno = funcao(item)
+        novoArray.push(retorno)
+    }
+    return novoArray
+}
 
