@@ -1,7 +1,13 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import './navMenu.css'
 
 class NavMenu extends Component {
+
+    logoutUsuario = () => {
+        localStorage.setItem('TOKEN', '')
+    }
+
     render() {
         return (
             <nav className="navMenu">
@@ -18,8 +24,8 @@ class NavMenu extends Component {
                 <li className="navMenu__item">
                     <a className="navMenu__link">Hashtags</a>
                 </li>
-                <li className="navMenu__item">
-                    <a className="navMenu__link">Logout</a>
+                <li className="navMenu__item" onClick={this.logoutUsuario}>
+                    <Link to="/login" className="navMenu__link">Logout</Link>
                 </li>
                 </ul>
             </nav>
