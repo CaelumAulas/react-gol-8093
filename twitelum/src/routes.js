@@ -6,7 +6,7 @@ import LoginPage from './pages/LoginPage'
 // High Order Component
 class PrivateRoute extends React.Component {
     render() {
-        console.log('PrivateRoute', this)
+        // console.log('PrivateRoute', this)
         if( localStorage.getItem('TOKEN') )  {
             const ComponenteDaRotaAtual = this.props.component
             return <ComponenteDaRotaAtual />

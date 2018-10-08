@@ -23,15 +23,22 @@ class HomePage extends Component {
     
     // https://reactjs.org/docs/state-and-lifecycle.html
     componentDidMount() {
+        console.log('<HomePage>',window.store.getState())
+        window.store.subscribe(() => {
+            this.setState({
+                tweets: window.store.getState()
+            })
+        })
+
         fetch(`https://twitelum-api.herokuapp.com/tweets?X-AUTH-TOKEN=${localStorage.getItem('TOKEN')}`)
         .then((dadosDoServidor) => {
             return dadosDoServidor.json()
         })
         .then((tweetsVindosDoServidor) => {
-            // console.log(tweetsVindosDoServidor)
-            this.setState({
-                tweets: tweetsVindosDoServidor
-            })
+            window.store.dispatch({ type:'CARREGA_TWEETS', tweets: tweetsVindosDoServidor })
+            // this.setState({
+            //     tweets: tweetsVindosDoServidor
+            // })
         })
     }
     

@@ -128,3 +128,10 @@ function map(funcao) {
     return novoArray
 }
 
+
+
+## Componentes comuns:
+### Fazer na mão:
+- https://www.felipefialho.com/css-components/#component-tooltip
+### Não fazer na mão:
+- https://codepen.io/davidchin/full/GpNvqw
