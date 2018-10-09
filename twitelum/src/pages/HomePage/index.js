@@ -7,6 +7,7 @@ import Widget from '../../components/Widget'
 import TrendsArea from '../../components/TrendsArea'
 import Tweet from '../../components/Tweet'
 import Modal from '../../components/Modal'
+import PropTypes from 'prop-types'
 
 class HomePage extends Component {
     
@@ -21,12 +22,16 @@ class HomePage extends Component {
         // this.adicionaTweet = this.adicionaTweet.bind(this)
     }
     
+    static contextTypes = {
+        store: PropTypes.object
+    }
+
     // https://reactjs.org/docs/state-and-lifecycle.html
     componentDidMount() { // Server Side Render
-        console.log('<HomePage>',window.store.getState())
+        // console.log('<HomePage>',window.store.getState())
         this.context.store.subscribe(() => {
             this.setState({
-                tweets: window.store.getState()
+                tweets: this.context.store.getState()
             })
         })
 
@@ -35,7 +40,7 @@ class HomePage extends Component {
             return dadosDoServidor.json()
         })
         .then((tweetsVindosDoServidor) => {
-            window.store.dispatch({ type:'CARREGA_TWEETS', tweets: tweetsVindosDoServidor })
+            this.context.store.dispatch({ type:'CARREGA_TWEETS', tweets: tweetsVindosDoServidor })
             // this.setState({
             //     tweets: tweetsVindosDoServidor
             // })
@@ -109,7 +114,7 @@ class HomePage extends Component {
 
 
   render() {
-    console.log(this)
+    console.log('Dentro do HomePage',this)
     return (
       <Fragment>
         <Helmet>

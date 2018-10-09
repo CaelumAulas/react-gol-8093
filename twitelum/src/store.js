@@ -31,6 +31,7 @@ function tweetsReducer(stateDaApp = stateInicialDosTweets, acaoDisparada) {
 }
 console.log('store.js',window)
 const store = createStore(tweetsReducer)
-window.store = store
+// window.store = store
+export default store
 // Sempre que executar um dispatch() o reducer é executado
 // Sempre pegamos o state atual por meio do store.getState()
