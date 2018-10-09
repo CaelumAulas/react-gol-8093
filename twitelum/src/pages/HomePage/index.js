@@ -22,9 +22,9 @@ class HomePage extends Component {
     }
     
     // https://reactjs.org/docs/state-and-lifecycle.html
-    componentDidMount() {
+    componentDidMount() { // Server Side Render
         console.log('<HomePage>',window.store.getState())
-        window.store.subscribe(() => {
+        this.context.store.subscribe(() => {
             this.setState({
                 tweets: window.store.getState()
             })
@@ -57,10 +57,11 @@ class HomePage extends Component {
             })
             .then((tweetVindoDoServidor) => {
                 console.log('tweetVindoDoServidor', tweetVindoDoServidor)
-                this.setState({
-                    tweets: [tweetVindoDoServidor, ...this.state.tweets],
-                    novoTweet: ''
-                })
+                window.store.dispatch({ type: 'ADD_TWEET' })
+                // this.setState({
+                //     tweets: [tweetVindoDoServidor, ...this.state.tweets],
+                //     novoTweet: ''
+                // })
             })
 
         }
@@ -108,7 +109,7 @@ class HomePage extends Component {
 
 
   render() {
-
+    console.log(this)
     return (
       <Fragment>
         <Helmet>
