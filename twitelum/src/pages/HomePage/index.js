@@ -5,7 +5,7 @@ import NavMenu from '../../components/NavMenu'
 import Dashboard from '../../components/Dashboard'
 import Widget from '../../components/Widget'
 import TrendsArea from '../../components/TrendsArea'
-import Tweet from '../../components/Tweet'
+import Tweet from '../../components/Tweet/TweetContainer'
 import Modal from '../../components/Modal'
 import PropTypes from 'prop-types'
 
