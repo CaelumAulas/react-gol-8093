@@ -48,7 +48,10 @@ export default class TweetContainer extends Component {
 
     render() {
         return (
-            <Tweet {...this.props} removeTweet={this.removeTweet} likeado={this.state.likeado} />
+            <Tweet
+                {...this.props}
+                removeTweet={this.removeTweet}
+                likeado={this.state.likeado} />
         )
     }
 }
