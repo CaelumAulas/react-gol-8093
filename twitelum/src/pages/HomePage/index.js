@@ -9,6 +9,9 @@ import Tweet from '../../components/Tweet'
 import Modal from '../../components/Modal'
 import PropTypes from 'prop-types'
 
+import * as TweetsActions from '../../actions/TweetsActions'
+// import { carregaTweets } from '../../actions/TweetsActions'
+
 class HomePage extends Component {
     
     constructor() {
@@ -27,6 +30,7 @@ class HomePage extends Component {
     }
 
     // https://reactjs.org/docs/state-and-lifecycle.html
+    // import * as TweetsActions from '../../actions/TweetsActions'
     componentDidMount() { // Server Side Render
         // console.log('<HomePage>',window.store.getState())
         this.context.store.subscribe(() => {
@@ -34,60 +38,27 @@ class HomePage extends Component {
                 tweets: this.context.store.getState()
             })
         })
-
-        fetch(`https://twitelum-api.herokuapp.com/tweets?X-AUTH-TOKEN=${localStorage.getItem('TOKEN')}`)
-        .then((dadosDoServidor) => {
-            return dadosDoServidor.json()
-        })
-        .then((tweetsVindosDoServidor) => {
-            this.context.store.dispatch({ type:'CARREGA_TWEETS', tweets: tweetsVindosDoServidor })
-            // this.setState({
-            //     tweets: tweetsVindosDoServidor
-            // })
-        })
+        // Thunk Action: Ação que faz algo assincrono
+        this.context.store.dispatch(TweetsActions.carregaTweets)
     }
     
     adicionaTweet = (infosDoEvento) => {
         infosDoEvento.preventDefault()
-        if(this.state.novoTweet.length > 0) {   
-            fetch(`https://twitelum-api.herokuapp.com/tweets?X-AUTH-TOKEN=${localStorage.getItem('TOKEN')}`, {
-                method: 'POST',
-                headers: {
-                    'Content-type': 'application/json'
-                },
-                body: JSON.stringify({ conteudo: this.state.novoTweet })
-            })
-            .then((respostaDoServer) => {
-                return respostaDoServer.json()
-            })
-            .then((tweetVindoDoServidor) => {
-                console.log('tweetVindoDoServidor', tweetVindoDoServidor)
-                window.store.dispatch({ type: 'ADD_TWEET' })
-                // this.setState({
-                //     tweets: [tweetVindoDoServidor, ...this.state.tweets],
-                //     novoTweet: ''
-                // })
-            })
+        // console.log(TweetsActions.adicionaTweet(this.state.novoTweet))
 
-        }
+        this.context.store.dispatch(
+            TweetsActions.adicionaTweet(this.state.novoTweet)
+        )
+
+        this.setState({
+            novoTweet: ''
+        })
     }
 
     removeTweet = (idDoTweetQueVaiSumir) => {
-        // console.log('removendo o tweet loucamente', idDoTweetQueVaiSumir)
-        const listaDeTweetsAtualizada = this.state.tweets.filter((tweetAtual) => {
-            return tweetAtual._id !== idDoTweetQueVaiSumir
-        })
-        
-        fetch(`https://twitelum-api.herokuapp.com/tweets/${idDoTweetQueVaiSumir}?X-AUTH-TOKEN=${localStorage.getItem('TOKEN')}`, {
-            method: 'DELETE'
-        })
-        .then((reponseDoServer) => { return reponseDoServer.json() })
-        .then((reponseDoServer) => {
-            console.log('DELETADO com sucesso!', reponseDoServer)
-            this.setState({
-                tweets: listaDeTweetsAtualizada
-            })    
-        })
+        this.context.store.dispatch(
+            TweetsActions.removeTweet(idDoTweetQueVaiSumir)
+        )
     }
 
     abreModal = (tweetQueVaiNoModal) => {
@@ -114,7 +85,6 @@ class HomePage extends Component {
 
 
   render() {
-    console.log('Dentro do HomePage',this)
     return (
       <Fragment>
         <Helmet>
