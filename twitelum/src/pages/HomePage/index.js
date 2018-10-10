@@ -34,7 +34,8 @@ class HomePage extends Component {
     componentDidMount() { // Server Side Render
         this.context.store.subscribe(() => {
             this.setState({
-                tweets: this.context.store.getState().listaDeTweets
+                tweets: this.context.store.getState().listaDeTweets,
+                tweetAtivo: this.context.store.getState().tweetAtivo
             })
         })
         // Thunk Action: Ação que faz algo assincrono
@@ -54,21 +55,22 @@ class HomePage extends Component {
         })
     }
 
-    removeTweet = (idDoTweetQueVaiSumir) => {
-        this.context.store.dispatch(
-            TweetsActions.removeTweet(idDoTweetQueVaiSumir)
-        )
-        this.setState({
-            tweetAtivo: {}
-        })
-    }
+    // removeTweet = (idDoTweetQueVaiSumir) => {
+    //     this.context.store.dispatch(
+    //         TweetsActions.removeTweet(idDoTweetQueVaiSumir)
+    //     )
+    //     this.setState({
+    //         tweetAtivo: {}
+    //     })
+    // }
 
     abreModal = (tweetQueVaiNoModal) => {
-        this.setState({
-            tweetAtivo: tweetQueVaiNoModal
-        }, () => {
-            console.log('Tweet adicionado no modal com sucesso!', this.state)
-        })
+        this.context.store.dispatch(TweetsActions.abreModal(tweetQueVaiNoModal))
+        // this.setState({
+        //     tweetAtivo: tweetQueVaiNoModal
+        // }, () => {
+        //     console.log('Tweet adicionado no modal com sucesso!', this.state)
+        // })
     }
 
     fechaModal = (infosDoEvento) => {

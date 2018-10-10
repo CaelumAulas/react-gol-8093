@@ -27,6 +27,13 @@ function tweetsReducer(stateDaApp = stateInicialDosTweets, acaoDisparada) {
         }
     }
 
+    if(acaoDisparada.type === 'OPEN_MODAL') {
+        return {
+            ...stateDaApp,
+            tweetAtivo: acaoDisparada.tweetQueVaiNoModal
+        }
+    }
+
     return stateDaApp
 }
 

@@ -50,3 +50,11 @@ export function removeTweet(tweetId) {
         })
     }
 }
+
+
+export function abreModal(tweetQueVaiNoModal) {
+    return function(dispatch) {
+        console.log('Abre modal')
+        dispatch({ type: 'OPEN_MODAL', tweetQueVaiNoModal: tweetQueVaiNoModal})
+    }
+}
