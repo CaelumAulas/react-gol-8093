@@ -32,10 +32,9 @@ class HomePage extends Component {
     // https://reactjs.org/docs/state-and-lifecycle.html
     // import * as TweetsActions from '../../actions/TweetsActions'
     componentDidMount() { // Server Side Render
-        // console.log('<HomePage>',window.store.getState())
         this.context.store.subscribe(() => {
             this.setState({
-                tweets: this.context.store.getState()
+                tweets: this.context.store.getState().listaDeTweets
             })
         })
         // Thunk Action: Ação que faz algo assincrono
@@ -59,6 +58,9 @@ class HomePage extends Component {
         this.context.store.dispatch(
             TweetsActions.removeTweet(idDoTweetQueVaiSumir)
         )
+        this.setState({
+            tweetAtivo: {}
+        })
     }
 
     abreModal = (tweetQueVaiNoModal) => {
@@ -70,10 +72,7 @@ class HomePage extends Component {
     }
 
     fechaModal = (infosDoEvento) => {
-        const isModal = infosDoEvento
-        .target
-        .classList
-        .contains('modal')
+        const isModal = infosDoEvento.target.classList.contains('modal')
         
         console.log('isModal', isModal)
         if(isModal) {

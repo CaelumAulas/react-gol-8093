@@ -1,24 +1,30 @@
 import { createStore, applyMiddleware } from 'redux'
 import thunk from 'redux-thunk'
-const stateInicialDosTweets = []
+
+const stateInicialDosTweets = { listaDeTweets: [], tweetAtivo: {} }
 function tweetsReducer(stateDaApp = stateInicialDosTweets, acaoDisparada) {
     if(acaoDisparada.type === 'CARREGA_TWEETS') {
-        return acaoDisparada.tweets
+        return {
+            ...stateDaApp,
+            listaDeTweets: acaoDisparada.tweets
+        }
     }
-
     if(acaoDisparada.type === 'ADD_TWEET') {
-        return [
-            acaoDisparada.tweet,
-            ...stateDaApp
-        ]
+        return {
+            ...stateDaApp,
+            listaDeTweets: [acaoDisparada.tweet, ...stateDaApp.listaDeTweets]
+        }
     }
 
     if(acaoDisparada.type === 'REMOVE_TWEET') {
         const idDoTweetQueVaiSumir = acaoDisparada.tweetId
-        const listaDeTweetsAtualizada = stateDaApp.filter((tweetAtual) => {
+        const listaDeTweetsAtualizada = stateDaApp.listaDeTweets.filter((tweetAtual) => {
             return tweetAtual._id !== idDoTweetQueVaiSumir
         })
-        return listaDeTweetsAtualizada
+        return {
+            ...stateDaApp,
+            listaDeTweets: listaDeTweetsAtualizada
+        }
     }
 
     return stateDaApp
@@ -28,7 +34,7 @@ const store = createStore(
     tweetsReducer,
     applyMiddleware(thunk)
 )
-// window.store = store
+window.store = store
 export default store
 
 

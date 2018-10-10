@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import './tweet.css'
+import * as TweetsActions from '../../actions/TweetsActions'
 
 class Tweet extends Component {
 
@@ -10,6 +11,17 @@ class Tweet extends Component {
             totalLikes: props.totalLikes,
             likeado: props.likeado
         }
+    }
+
+    static contextTypes = {
+        store: PropTypes.object
+    }
+
+    removeTweet = (idDoTweetQueVaiSumir) => {
+        console.log('Removendo o tweet com a função dentro do tweet')
+        this.context.store.dispatch(
+            TweetsActions.removeTweet(this.props.id)
+        )
     }
 
     like = () => {
@@ -48,7 +60,7 @@ class Tweet extends Component {
                     {
                         // Renderização condicional
                         // Se removivel for "true" RETORNA o componente 
-                        this.props.removivel && <button onClick={this.props.removeHandler} className="btn btn--blue btn--remove">X</button>
+                        this.props.removivel && <button onClick={this.removeTweet} className="btn btn--blue btn--remove">X</button>
                     }
                     <button className="btn btn--clean" onClick={this.like}>
                         <svg className={`icon icon--small iconHeart ${ this.state.likeado ? 'iconHeart--active' : '' }`} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 47.5 47.5">

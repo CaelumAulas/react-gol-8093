@@ -135,3 +135,19 @@ function map(funcao) {
 - https://www.felipefialho.com/css-components/#component-tooltip
 ### Não fazer na mão:
 - https://codepen.io/davidchin/full/GpNvqw
+
+## Coisas do Redux:
+- Flux: https://facebook.github.io/flux/docs/in-depth-overview.html#content
+    - Curiar essa lib: https://www.npmjs.com/package/pubsub-js
+    - Mais exemplos de como trabalhar com Redux e o que acontefce por debaixo dos panos: https://docs.google.com/presentation/d/1KEL1RqzsHcZ6MuJ-cGf1fOs_7GxSvEWTe32s_ehHVrQ/edit?usp=sharing
+
+- Função que retorna funcao
+```js
+function adicionaTweet(novoTweet) {
+	return function() {
+		console.log('Valor do novo tweet:', novoTweet)
+	}
+}
+
+adicionaTweet('valor')()
+```
