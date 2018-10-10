@@ -19,7 +19,7 @@ class Tweet extends Component {
                     {
                         // Renderização condicional
                         // Se removivel for "true" RETORNA o componente 
-                        this.props.removivel && <button onClick={this.removeTweet} className="btn btn--blue btn--remove">X</button>
+                        this.props.removivel && <button onClick={this.props.removeTweet} className="btn btn--blue btn--remove">X</button>
                     }
                     <button className="btn btn--clean" onClick={this.like}>
                         <svg className={`icon icon--small iconHeart ${ this.props.likeado ? 'iconHeart--active' : '' }`} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 47.5 47.5">
