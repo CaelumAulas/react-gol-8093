@@ -78,9 +78,7 @@ class HomePage extends Component {
         
         console.log('isModal', isModal)
         if(isModal) {
-            this.setState({
-                tweetAtivo: {}
-            })
+            this.context.store.dispatch(TweetsActions.fechaModal)
         }
     }
 

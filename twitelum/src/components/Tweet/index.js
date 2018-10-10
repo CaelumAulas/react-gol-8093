@@ -22,6 +22,8 @@ class Tweet extends Component {
         this.context.store.dispatch(
             TweetsActions.removeTweet(this.props.id)
         )
+
+        this.context.store.dispatch(TweetsActions.fechaModal)
     }
 
     like = () => {

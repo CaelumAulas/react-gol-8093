@@ -55,6 +55,15 @@ export function removeTweet(tweetId) {
 export function abreModal(tweetQueVaiNoModal) {
     return function(dispatch) {
         console.log('Abre modal')
-        dispatch({ type: 'OPEN_MODAL', tweetQueVaiNoModal: tweetQueVaiNoModal})
+        dispatch(
+            { type: 'OPEN_MODAL',
+            tweetQueVaiNoModal: tweetQueVaiNoModal
+        })
     }
+}
+
+export function fechaModal(dispatch) {
+    dispatch({
+        type: 'CLOSE_MODAL'
+    })
 }
