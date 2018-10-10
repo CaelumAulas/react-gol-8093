@@ -67,3 +67,20 @@ export function fechaModal(dispatch) {
         type: 'CLOSE_MODAL'
     })
 }
+
+
+export function like(idDoTweet) {
+    return function(dispatch) {
+        dispatch({ type: 'LIKE', idDoTweet })
+
+        fetch(`https://twitelum-api.herokuapp.com/tweets/${idDoTweet}/like?X-AUTH-TOKEN=${localStorage.getItem('TOKEN')}`, {
+            method: 'POST'
+        })
+        .then((reponseDoServer) => {
+            return reponseDoServer.json()
+        })
+        .then((reponseDoServer) => {
+            console.log('Like com sucesso!', reponseDoServer)
+        })
+    }
+}

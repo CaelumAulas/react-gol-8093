@@ -2,6 +2,7 @@ import { createStore, applyMiddleware } from 'redux'
 import thunk from 'redux-thunk'
 
 const stateInicialDosTweets = { listaDeTweets: [], tweetAtivo: {} }
+
 function tweetsReducer(stateDaApp = stateInicialDosTweets, acaoDisparada) {
     if(acaoDisparada.type === 'CARREGA_TWEETS') {
         return {
@@ -41,7 +42,34 @@ function tweetsReducer(stateDaApp = stateInicialDosTweets, acaoDisparada) {
         }
     }
 
+    if(acaoDisparada.type === 'LIKE') {
+        const idDoTweet = acaoDisparada.idDoTweet
+        const listaAtualizada = stateDaApp.listaDeTweets.map((tweetAtual) => {
+            if(tweetAtual._id === idDoTweet) {
+
+                tweetAtual.likeado = !tweetAtual.likeado
+
+                if(tweetAtual.likeado) {
+                    tweetAtual.totalLikes = tweetAtual.totalLikes + 1
+                } else {
+                    tweetAtual.totalLikes = tweetAtual.totalLikes - 1
+                }
+            }
+
+            return tweetAtual
+        })
+
+        return {
+            ...stateDaApp,
+            listaDeTweets: listaAtualizada
+        }
+    }
+
     return stateDaApp
+}
+
+function notificacoesReducer() {
+    
 }
 
 const store = createStore(

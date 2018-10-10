@@ -21,29 +21,12 @@ export default class TweetContainer extends Component {
         this.context.store.dispatch(
             TweetsActions.removeTweet(this.props.id)
         )
-
         this.context.store.dispatch(TweetsActions.fechaModal)
     }
 
     like = () => {
-        console.log('Botao de like em produção')
-        const totalLikes = this.state.totalLikes
-        const likeado = this.state.likeado
         const idDoTweet = this.props.id
-        this.setState({
-            likeado: !likeado,
-            totalLikes: likeado ? totalLikes - 1 : totalLikes + 1
-        })
-
-        fetch(`https://twitelum-api.herokuapp.com/tweets/${idDoTweet}/like?X-AUTH-TOKEN=${localStorage.getItem('TOKEN')}`, {
-            method: 'POST'
-        })
-        .then((reponseDoServer) => {
-            return reponseDoServer.json()
-        })
-        .then((reponseDoServer) => {
-            console.log('Like com sucesso!', reponseDoServer)
-        })
+        this.context.store.dispatch(TweetsActions.like(idDoTweet))
     }
 
     render() {
@@ -51,7 +34,9 @@ export default class TweetContainer extends Component {
             <Tweet
                 {...this.props}
                 removeTweet={this.removeTweet}
-                likeado={this.state.likeado} />
+                likeado={this.props.likeado}
+                totalLikes={this.props.totalLikes}
+                like={this.like} />
         )
     }
 }
